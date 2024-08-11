@@ -16,7 +16,7 @@ bool isValidCpf(string cpf)
     foreach (char c in _cpfDigits)
     {
         if (!isNumeric(c))
-            throw new Exception("CPF is not valid");
+            throw new Exception("CPF is not valid. Please enter only numeric digits.");
     }
 
     #region Digit Checker 1
@@ -51,15 +51,32 @@ bool isValidCpf(string cpf)
     return true;
 }
 
+bool isValidFone(string fone)
+{
+    if (fone == null)
+        throw new Exception("Fone is required");
+
+    if (fone.Length < 8 || fone.Length > 13)
+        throw new Exception("Fone is not valid");
+
+    foreach (char c in fone)
+    {
+        if (!isNumeric(c))
+            throw new Exception("Fone is not valid. Please enter only numeric digits.");
+    }
+
+    return true;
+}
+
 try
 {
-    Console.WriteLine("Digite o CPF no formato '12345678911':");
-    string _cpf = Console.ReadLine();
+    Console.WriteLine("Digite o Fone. Informe apenas dígitos númericos:");
+    string fone = Console.ReadLine();
 
-    if (isValidCpf(_cpf))
-        Console.WriteLine("CPF is valid");
+    if (isValidFone(fone))
+        Console.WriteLine("Fone is valid");
     else
-        Console.WriteLine("CPF is not valid");
+        Console.WriteLine("Fone is not valid");
 }
 catch (Exception ex)
 {
