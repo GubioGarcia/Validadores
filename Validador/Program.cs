@@ -1,6 +1,13 @@
-﻿bool isNumeric(char caracter)
+﻿bool isNumber(string aux)
 {
-    return Char.IsDigit(caracter);
+    char[] _auxDigits = aux.ToCharArray();
+    foreach (char item in _auxDigits)
+    {
+        if (!Char.IsDigit(item))
+            return false;
+    }
+
+    return true;
 }
 
 bool isValidCpf(string cpf)
@@ -11,13 +18,10 @@ bool isValidCpf(string cpf)
     if (cpf.Length != 11)
         throw new Exception("CPF is not valid");
 
-    char[] _cpfDigits = cpf.ToCharArray();
+    if (!isNumber(cpf))
+        throw new Exception("CPF is not valid. Please enter only numeric digits.");
 
-    foreach (char c in _cpfDigits)
-    {
-        if (!isNumeric(c))
-            throw new Exception("CPF is not valid. Please enter only numeric digits.");
-    }
+    char[] _cpfDigits = cpf.ToCharArray();
 
     #region Digit Checker 1
 
@@ -59,17 +63,19 @@ bool isValidFone(string fone)
     if (fone.Length < 8 || fone.Length > 13)
         throw new Exception("Fone is not valid");
 
-    foreach (char c in fone)
-    {
-        if (!isNumeric(c))
-            throw new Exception("Fone is not valid. Please enter only numeric digits.");
-    }
-
-    return true;
+    return isNumber(fone);
 }
 
 try
 {
+    Console.WriteLine("Digite o CPF no formato '12345678911':");
+    string _cpf = Console.ReadLine();
+
+    if (isValidCpf(_cpf))
+        Console.WriteLine("CPF is valid");
+    else
+        Console.WriteLine("CPF is not valid");
+/*
     Console.WriteLine("Digite o Fone. Informe apenas dígitos númericos:");
     string fone = Console.ReadLine();
 
@@ -77,6 +83,7 @@ try
         Console.WriteLine("Fone is valid");
     else
         Console.WriteLine("Fone is not valid");
+*/
 }
 catch (Exception ex)
 {
